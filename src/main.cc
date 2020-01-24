@@ -46,8 +46,6 @@ void test(QGuiApplication* app)
 int main(int argc, char* argv[])
 {
     START_EASYLOGGINGPP(argc, argv);
-    LOG(INFO) << "TEST INFO";
-    LOG(WARNING) << "TEST WARN";
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
@@ -61,7 +59,7 @@ int main(int argc, char* argv[])
     //    Tester tester(&app);
     //    QThreadPool::globalInstance()->start(&tester);
     //    tester.run();
-    test(&app);
+//    test(&app);
     engine.load(url);
     return app.exec();
 }
