@@ -28,7 +28,6 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        console.log("Clicked!")
                         circleClicked(index)
                     }
                 }

@@ -14,10 +14,15 @@ Window {
         anchors.fill: parent
         anchors.topMargin: 100
         onCircleClicked: {
-            console.log(index, " clicked!")
+            console.log("Circle ", index, " clicked!")
             var color_player = playerTurn ? "Red" : "Yellow"
-            repeaterHandle.itemAt(index).color = color_player
-            playerTurn = !playerTurn
+            console.log(repeaterHandle.itemAt(index).color)
+            if (Qt.colorEqual(repeaterHandle.itemAt(index).color, "#ffffff")) {
+                repeaterHandle.itemAt(index).color = color_player
+                playerTurn = !playerTurn
+            } else {
+                console.log("Error: Index ", index, " was clicked before.")
+            }
         }
     }
 }
