@@ -5,8 +5,9 @@ import QtQuick.Layouts 1.12
 Rectangle {
     id: root
     property alias gridHandle: gridLayout
-    property alias repeaterHandle: repeater
-    signal circleClicked(int index)
+    property alias repeaterHandle: chipRepeater
+    property alias columnHandle: clickable
+    signal colClicked(int index)
 
     //        border.width: 50
     //        border.color: "#FFF4C1"
@@ -18,17 +19,32 @@ Rectangle {
         columns: 7
         spacing: 25
         Repeater {
-            id: repeater
+            id: chipRepeater
             model: 42
             Rectangle {
                 width: recSize
                 height: recSize
                 radius: width * 0.5
                 color: "white"
+            }
+        }
+    }
+    Row {
+        id: clickable
+        anchors.centerIn: parent
+        Repeater {
+            model: 7
+            Rectangle {
+                width: recSize + gridLayout.spacing
+                height: root.height
+                color: "transparent"
+                border.color: "gray"
+                border.width: 5
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        circleClicked(index)
+                        colClicked(index)
                     }
                 }
             }

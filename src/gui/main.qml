@@ -13,16 +13,8 @@ Window {
         id: board
         anchors.fill: parent
         anchors.topMargin: 100
-        onCircleClicked: {
-            console.log("Circle ", index, " clicked!")
-            var color_player = playerTurn ? "Red" : "Yellow"
-            console.log(repeaterHandle.itemAt(index).color)
-            if (Qt.colorEqual(repeaterHandle.itemAt(index).color, "#ffffff")) {
-                repeaterHandle.itemAt(index).color = color_player
-                playerTurn = !playerTurn
-            } else {
-                console.log("Error: Index ", index, " was clicked before.")
-            }
+        onColClicked: {
+            console.debug("Column ", index, " clicked!")
         }
     }
 }
