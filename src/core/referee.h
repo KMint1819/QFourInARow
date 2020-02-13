@@ -4,13 +4,14 @@
 #include <QObject>
 
 #include "core/base.h"
-#include "core/board.h"
-class Referee : public QObject, public LoggedClass
-{
+
+class Referee : public QObject, public LoggedClass {
+
     Q_OBJECT
 public:
     explicit Referee(QObject* parent = nullptr);
-    WinCode judge(int playerNum, Board* board);
+    WinCode judge(int playerNum, QVector<QVector<int>> map);
+
 private:
     WinCode vertical(int playerNum, QVector<QVector<int>> map);
     WinCode horizontal(int playerNum, QVector<QVector<int>> map);

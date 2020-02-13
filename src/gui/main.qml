@@ -9,12 +9,15 @@ Window {
     height: 800
     title: qsTr("Hello World")
 
+    signal putSignal(var column)
+
     BoardView {
         id: board
         anchors.fill: parent
         anchors.topMargin: 100
         onColClicked: {
-            console.debug("Column ", index, " clicked!")
+            console.debug("Column ", index, " clicked!");
+            putSignal(index);
         }
     }
 }
