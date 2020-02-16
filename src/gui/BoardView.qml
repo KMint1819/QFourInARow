@@ -6,8 +6,8 @@ Rectangle {
     id: root
     property alias gridHandle: gridLayout
     property alias repeaterHandle: chipRepeater
-    property alias columnHandle: clickable
-    signal colClicked(int index)
+    property alias columnHandle: clickableArea
+    signal colClicked(int col)
 
     //        border.width: 50
     //        border.color: "#FFF4C1"
@@ -30,7 +30,7 @@ Rectangle {
         }
     }
     Row {
-        id: clickable
+        id: clickableArea
         anchors.centerIn: parent
         Repeater {
             model: 7
@@ -44,9 +44,19 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        colClicked(index)
+                        colClicked(index + 1)
                     }
                 }
+            }
+        }
+    }
+    function refresh(map1d) {
+        console.log("Refreshing with", map1d)
+        for (var i = 0; i < 42; ++i) {
+            if (map1d[i] === 1) {
+                chipRepeater.itemAt(i).color = "red"
+            } else if (map1d[i] === 2) {
+                chipRepeater.itemAt(i).color = "yellow"
             }
         }
     }

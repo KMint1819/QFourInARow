@@ -12,26 +12,24 @@
 #include <QDebug>
 #include <QtQuick>
 class Board : public QObject, public LoggedClass {
+
     Q_OBJECT
-    Q_PROPERTY(QVector<int> map READ getMap1d WRITE setMap1d NOTIFY mapChanged)
-    Q_PROPERTY(QVector<int> colHeight READ getColHeight)
+
 public:
-    explicit Board(QObject* parent, QString player1, QString player2, QQuickView* view);
+    explicit Board(QObject* parent, QString player1, QString player2, QQmlApplicationEngine& engine);
     void test();
     void clear();
     void print();
     int getWinner();
     QPair<QString, QString> getPlayerName();
-    StatusCode put(int playerNum, int col);
     QVector<QVector<int>> getMap2d();
-    QVector<int> getMap1d();
-    void setMap1d(QVector<int>);
+    // QML
+    Q_INVOKABLE bool put(int playerNum, int col);
+    Q_INVOKABLE QVector<int> getMap1d();
     //    QString toString();
-signals:
-    void mapChanged();
 
 private:
-    QQuickView* m_view;
+    QQmlApplicationEngine* engine;
     QVector<QVector<int>> m_map;
     QVector<int> col_height;
     int winner = 0;
