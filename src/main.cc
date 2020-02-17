@@ -65,28 +65,7 @@ int main(int argc, char* argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     const QUrl url(QStringLiteral("qrc:/gui/main.qml"));
-    //    QQmlApplicationEngine engine;
-    //    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-    //        &app, [url](QObject* obj, const QUrl& objUrl) {
-    //            if (!obj && url == objUrl) {
-    //                QCoreApplication::exit(-1);
-    //            }
-    //        },
-    //        Qt::QueuedConnection);
-    //    Tester tester(&app);
-    //    QThreadPool::globalInstance()->start(&tester);
-    //    tester.run();
-    //    test(&app);
 
-    //    const void* address = static_cast<const void*>(&app);
-    //    std::stringstream ss;
-    //    ss << address;
-    //    std::string name = ss.str();
-    //    LOG(INFO) << name;
-
-    //    test(app, url);
-
-    LOG(INFO) << "Testing...";
     QVector<QString> dualName = { "A", "B" };
     QQmlApplicationEngine engine;
     engine.load(url);

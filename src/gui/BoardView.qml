@@ -4,13 +4,7 @@ import QtQuick.Layouts 1.12
 
 Rectangle {
     id: root
-    property alias gridHandle: gridLayout
-    property alias repeaterHandle: chipRepeater
-    property alias columnHandle: clickableArea
     signal colClicked(int col)
-
-    //        border.width: 50
-    //        border.color: "#FFF4C1"
     color: "#0000CA"
     property int recSize: 60
     Grid {
@@ -57,6 +51,8 @@ Rectangle {
                 chipRepeater.itemAt(i).color = "red"
             } else if (map1d[i] === 2) {
                 chipRepeater.itemAt(i).color = "yellow"
+            } else {
+                chipRepeater.itemAt(i).color = "white"
             }
         }
     }

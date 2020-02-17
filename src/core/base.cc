@@ -18,7 +18,7 @@ LoggedClass::~LoggedClass()
 {
     el::Loggers::unregisterLogger(tag.toStdString());
 }
-void LoggedClass::print_sep()
+void LoggedClass::printSep() const
 {
     QString tmp("===============================");
     log->info("%v", tmp.toStdString());

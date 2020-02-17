@@ -1,31 +1,27 @@
 #ifndef BASE_H
 #define BASE_H
 
-#include <QString>
-#include <QDir>
 #include "easyloggingpp/src/easylogging++.h"
+#include <QDir>
+#include <QString>
 
 const QDir PRO_ROOT("../");
-enum StatusCode
-{
+enum StatusCode {
     Fail,
     Success
 };
-enum WinCode
-{
+enum WinCode {
     NotFinished,
-    Lose,
     Win
 };
 
 const uint8_t ROW_MAX = 6;
 const uint8_t COL_MAX = 7;
-class LoggedClass
-{
+class LoggedClass {
 public:
     LoggedClass(const QString& tag);
     ~LoggedClass();
-    void print_sep();
+    void printSep() const;
     el::Logger* log = nullptr;
 
 private:

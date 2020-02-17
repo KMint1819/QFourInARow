@@ -18,14 +18,14 @@ class Board : public QObject, public LoggedClass {
 public:
     explicit Board(QObject* parent, QString player1, QString player2, QQmlApplicationEngine& engine);
     void test();
-    void clear();
-    void print();
-    int getWinner();
-    QPair<QString, QString> getPlayerName();
-    QVector<QVector<int>> getMap2d();
+    void print() const;
+    QVector<QVector<int>> getMap2d() const;
     // QML
-    Q_INVOKABLE bool put(int playerNum, int col);
-    Q_INVOKABLE QVector<int> getMap1d();
+    Q_INVOKABLE bool put(const int& playerNum, const int& col);
+    Q_INVOKABLE QVector<int> getMap1d() const;
+    Q_INVOKABLE int getWinner() const;
+    Q_INVOKABLE QVector<QString> getPlayerName() const;
+    Q_INVOKABLE void clear();
     //    QString toString();
 
 private:
@@ -33,6 +33,7 @@ private:
     QVector<QVector<int>> m_map;
     QVector<int> col_height;
     int winner = 0;
+    int counter = 0;
     QString player1;
     QString player2;
     Referee ref;

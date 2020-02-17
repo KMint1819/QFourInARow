@@ -9,16 +9,6 @@ Board::Board(QObject* parent, QString player1, QString player2, QQmlApplicationE
     , ref(parent)
 {
     log->debug("Constructing board...");
-
-    const void* address = static_cast<const void*>(&engine);
-    std::stringstream ss;
-    ss << address;
-    std::string name = ss.str();
-    LOG(INFO) << name;
-
-    //    QObject* root = qobject_cast<QObject*>(view->rootObject());
-    //    QObject::connect(root, SIGNAL(putSignal(QVariant, QVariant)),
-    //        this, SLOT(put(QVariant, QVariant)));
     engine.rootContext()->setContextProperty("board", this);
 
     m_map.resize(ROW_MAX + 1);
@@ -30,11 +20,11 @@ Board::Board(QObject* parent, QString player1, QString player2, QQmlApplicationE
     col_height.resize(COL_MAX + 1);
     log->info("Board constructed");
 }
-QVector<QVector<int>> Board::getMap2d()
+QVector<QVector<int>> Board::getMap2d() const
 {
     return m_map;
 }
-QVector<int> Board::getMap1d()
+QVector<int> Board::getMap1d() const
 {
     QVector<int> output(ROW_MAX * COL_MAX);
     int p = 0;
@@ -46,11 +36,14 @@ QVector<int> Board::getMap1d()
 
     return output;
 }
-QPair<QString, QString> Board::getPlayerName()
+QVector<QString> Board::getPlayerName() const
 {
-    return QPair<QString, QString>(player1, player2);
+    QVector<QString> names(2);
+    names[0] = player1;
+    names[1] = player2;
+    return names;
 }
-bool Board::put(int playerNum, int col)
+bool Board::put(const int& playerNum, const int& col)
 {
     log->info("Putting %v to column %v", playerNum, col);
 
@@ -61,26 +54,34 @@ bool Board::put(int playerNum, int col)
 
     m_map[ROW_MAX - col_height[col]][col] = playerNum;
     col_height[col]++;
+    counter++;
     log->debug("Put succeed!");
 
     if (ref.judge(playerNum, m_map)) {
         winner = playerNum;
     }
+    if (counter >= COL_MAX * ROW_MAX) {
+        winner = -100;
+        log->info("The board is full!!");
+    }
     return true;
 }
 void Board::clear()
 {
-    col_height.clear();
+    winner = 0;
+    counter = 0;
     m_map.clear();
-
-    for (int i = 1; i <= 7; ++i) {
-        m_map[i].clear();
+    m_map.resize(ROW_MAX + 1);
+    for (int i = 1; i <= ROW_MAX; ++i) {
+        m_map[i].resize(COL_MAX + 1);
     }
 
+    col_height.clear();
+    col_height.resize(COL_MAX + 1);
     log->debug("m_map cleared");
-    print_sep();
+    printSep();
 }
-void Board::print()
+void Board::print() const
 {
     log->debug("Printing board");
 
@@ -90,13 +91,12 @@ void Board::print()
         for (int j = 1; j <= COL_MAX; ++j) {
             tmp.push_back(QString::number(m_map[i][j]));
         }
-
         log->info("%v", tmp.toStdString());
     }
 
-    print_sep();
+    printSep();
 }
-int Board::getWinner()
+int Board::getWinner() const
 {
     return winner;
 }

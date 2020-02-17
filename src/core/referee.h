@@ -10,16 +10,13 @@ class Referee : public QObject, public LoggedClass {
     Q_OBJECT
 public:
     explicit Referee(QObject* parent = nullptr);
-    WinCode judge(int playerNum, QVector<QVector<int>> map);
+    WinCode judge(const int& playerNum, const QVector<QVector<int>>& map) const;
 
 private:
-    WinCode vertical(int playerNum, QVector<QVector<int>> map);
-    WinCode horizontal(int playerNum, QVector<QVector<int>> map);
-    WinCode diagonal_up(int playerNum, QVector<QVector<int>> map);
-    WinCode diagonal_down(int playerNum, QVector<QVector<int>> map);
-signals:
-
-public slots:
+    WinCode vertical(const int& playerNum, const QVector<QVector<int>>& map) const;
+    WinCode horizontal(const int& playerNum, const QVector<QVector<int>>& map) const;
+    WinCode diagonalUp(const int& playerNum, const QVector<QVector<int>>& map) const;
+    WinCode diagonalDown(const int& playerNum, const QVector<QVector<int>>& map) const;
 };
 
 #endif // REFEREE_H
