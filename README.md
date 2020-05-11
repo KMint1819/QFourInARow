@@ -1,3 +1,3 @@
 # QFourInARow
 
-![Image not available](https://imgur.com/Vxm9pWk)
+![Image not available](https://imgur.com/Vxm9pWk.jpg)
