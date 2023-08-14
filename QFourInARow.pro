@@ -17,12 +17,9 @@ INCLUDEPATH += \
                 third_party
 
 SOURCES += \
-        src/core/base.cc \
         src/core/board.cc \
         src/core/referee.cc \
-#        test/core/test_referee.cpp \
         src/main.cc \
-        third_party/easyloggingpp/src/easylogging++.cc
 
 RESOURCES += src/qml.qrc
 
@@ -41,7 +38,6 @@ HEADERS += \
     src/core/base.h \
     src/core/board.h \
     src/core/referee.h \
-    third_party/easyloggingpp/src/easylogging++.h
 
 DISTFILES += \
     config/log.conf
