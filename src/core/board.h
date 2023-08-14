@@ -3,6 +3,7 @@
 
 #include "core/base.h"
 #include "core/referee.h"
+#include <QAbstractListModel>
 #include <QObject>
 #include <QPair>
 #include <QQuickView>
@@ -11,32 +12,26 @@
 #include "base.h"
 #include <QDebug>
 #include <QtQuick>
-class Board : public QObject
-{
 
+class Board : public QAbstractListModel
+{
     Q_OBJECT
 
   public:
-    explicit Board(QObject *parent, QString player1, QString player2, QQmlApplicationEngine &engine);
-    void test();
-    void print() const;
-    QVector<QVector<int>> getMap2d() const;
-    // QML
-    Q_INVOKABLE bool put(const int &playerNum, const int &col);
-    Q_INVOKABLE QVector<int> getMap1d() const;
-    Q_INVOKABLE int getWinner() const;
-    Q_INVOKABLE QVector<QString> getPlayerName() const;
-    Q_INVOKABLE void clear();
-    //    QString toString();
+    explicit Board(QObject *parent = nullptr);
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
+    // Slots
+    void onPut(const PlayerId &playerNum, const int &col);
+    void onRestart();
+
+  signals:
+    void updateSignal(BoardContainer map, PlayerId winner);
 
   private:
-    QQmlApplicationEngine *engine;
-    QVector<QVector<int>> m_map;
-    QVector<int> col_height;
-    int winner = 0;
-    int counter = 0;
-    QString player1;
-    QString player2;
-    Referee ref;
+    BoardContainer m_map;
+    Referee m_ref;
 };
 #endif // BOARD_H

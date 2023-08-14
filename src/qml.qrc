@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>gui/main.qml</file>
         <file>gui/BoardView.qml</file>
+        <file>gui/Piece.qml</file>
     </qresource>
 </RCC>

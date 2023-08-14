@@ -7,17 +7,17 @@
 
 class Referee : public QObject
 {
-
     Q_OBJECT
+
   public:
     explicit Referee(QObject *parent = nullptr);
-    WinCode judge(const int &playerNum, const QVector<QVector<int>> &map) const;
+    std::optional<PlayerId> judge(const BoardContainer &map) const;
 
   private:
-    WinCode vertical(const int &playerNum, const QVector<QVector<int>> &map) const;
-    WinCode horizontal(const int &playerNum, const QVector<QVector<int>> &map) const;
-    WinCode diagonalUp(const int &playerNum, const QVector<QVector<int>> &map) const;
-    WinCode diagonalDown(const int &playerNum, const QVector<QVector<int>> &map) const;
+    bool vertical(const PlayerId &playerNum, const BoardContainer &map) const;
+    bool horizontal(const PlayerId &playerNum, const BoardContainer &map) const;
+    bool diagonalUp(const PlayerId &playerNum, const BoardContainer &map) const;
+    bool diagonalDown(const PlayerId &playerNum, const BoardContainer &map) const;
 };
 
 #endif // REFEREE_H

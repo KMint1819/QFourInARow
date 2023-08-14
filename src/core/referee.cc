@@ -5,25 +5,26 @@
 Referee::Referee(QObject *parent) : QObject(parent)
 {
 }
-WinCode Referee::judge(const int &playerNum, const QVector<QVector<int>> &map) const
+std::optional<PlayerId> Referee::judge(const BoardContainer &map) const
 {
-
-    if (vertical(playerNum, map) == Win || horizontal(playerNum, map) == Win || diagonalUp(playerNum, map) == Win ||
-        diagonalDown(playerNum, map) == Win)
+    if (vertical(1, map) || horizontal(1, map) || diagonalUp(1, map) || diagonalDown(1, map))
     {
-        return Win;
+        return 1;
     }
-
-    return NotFinished;
+    else if (vertical(2, map) || horizontal(2, map) || diagonalUp(2, map) || diagonalDown(2, map))
+    {
+        return 2;
+    }
+    return std::nullopt;
 }
 
-WinCode Referee::vertical(const int &playerNum, const QVector<QVector<int>> &map) const
+bool Referee::vertical(const PlayerId &playerNum, const BoardContainer &map) const
 {
-    WinCode winCode = NotFinished;
+    bool has_won = false;
 
     // vertical
-    for (int i = 1; i <= ROW_MAX - 4 + 1 && winCode == NotFinished; ++i)
-        for (int j = 1; j <= COL_MAX && winCode == NotFinished; ++j)
+    for (int i = 1; i <= ROW_MAX - 4 + 1 && has_won == false; ++i)
+        for (int j = 1; j <= COL_MAX && has_won == false; ++j)
         {
             bool tmp = true;
 
@@ -37,18 +38,18 @@ WinCode Referee::vertical(const int &playerNum, const QVector<QVector<int>> &map
 
             if (tmp == true)
             {
-                winCode = Win;
+                has_won = true;
             }
         }
 
-    return winCode;
+    return has_won;
 }
-WinCode Referee::horizontal(const int &playerNum, const QVector<QVector<int>> &map) const
+bool Referee::horizontal(const PlayerId &playerNum, const BoardContainer &map) const
 {
-    WinCode winCode = NotFinished;
+    bool has_won = false;
 
-    for (int i = 1; i <= ROW_MAX && winCode == NotFinished; ++i)
-        for (int j = 1; j <= COL_MAX - 4 + 1 && winCode == NotFinished; ++j)
+    for (int i = 1; i <= ROW_MAX && has_won == false; ++i)
+        for (int j = 1; j <= COL_MAX - 4 + 1 && has_won == false; ++j)
         {
             bool tmp = true;
 
@@ -62,15 +63,15 @@ WinCode Referee::horizontal(const int &playerNum, const QVector<QVector<int>> &m
 
             if (tmp == true)
             {
-                winCode = Win;
+                has_won = true;
             }
         }
 
-    return winCode;
+    return has_won;
 }
-WinCode Referee::diagonalUp(const int &playerNum, const QVector<QVector<int>> &map) const
+bool Referee::diagonalUp(const PlayerId &playerNum, const BoardContainer &map) const
 {
-    WinCode winCode = NotFinished;
+    bool has_won = false;
     QSet<QPair<int, int>> headList;
 
     for (int i = ROW_MAX; i - 3 >= 1; --i)
@@ -79,30 +80,30 @@ WinCode Referee::diagonalUp(const int &playerNum, const QVector<QVector<int>> &m
 
     for (auto head : headList)
     {
-        if (winCode == Win)
+        if (has_won == true)
         {
             break;
         }
         int r = head.first;
         int c = head.second;
-        WinCode tmp = Win;
+        bool tmp = true;
         for (int i = 0; i < 4; ++i)
         {
             if (map[r - i][c + i] != playerNum)
             {
-                tmp = NotFinished;
+                tmp = false;
                 break;
             }
         }
-        if (tmp == Win)
-            winCode = Win;
+        if (tmp == true)
+            has_won = true;
     }
 
-    return winCode;
+    return has_won;
 }
-WinCode Referee::diagonalDown(const int &playerNum, const QVector<QVector<int>> &map) const
+bool Referee::diagonalDown(const PlayerId &playerNum, const BoardContainer &map) const
 {
-    WinCode winCode = NotFinished;
+    bool has_won = false;
     QSet<QPair<int, int>> headList;
 
     for (int i = 1; i + 3 <= ROW_MAX; ++i)
@@ -111,28 +112,28 @@ WinCode Referee::diagonalDown(const int &playerNum, const QVector<QVector<int>> 
 
     for (auto head : headList)
     {
-        if (winCode == Win)
+        if (has_won == true)
         {
             break;
         }
 
         int r = head.first;
         int c = head.second;
-        WinCode tmp = Win;
+        bool tmp = true;
         for (int i = 0; i < 4; ++i)
         {
             if (map[r + i][c + i] != playerNum)
             {
-                tmp = NotFinished;
+                tmp = false;
                 break;
             }
         }
 
-        if (tmp == Win)
+        if (tmp == true)
         {
-            winCode = Win;
+            has_won = true;
         }
     }
 
-    return winCode;
+    return has_won;
 }
