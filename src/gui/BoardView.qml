@@ -10,31 +10,16 @@ Rectangle {
         id: gridView
         anchors.fill: parent
         model: boardModel
+        flow: GridView.RightToLeft
+
         delegate: Piece {
-            width: gridView.cellWidth - 2
-            height: gridView.cellHeight - 2
+            width: gridView.cellWidth - 5
+            height: gridView.cellHeight - 5
             player: model.display
         }
     }
-    // Row {
-    //     id: clickableArea
-    //     anchors.centerIn: parent
-    //     Repeater {
-    //         model: 7
-    //         Rectangle {
-    //             width: recSize + gridLayout.spacing
-    //             height: root.height
-    //             color: "transparent"
-    //             border.color: "gray"
-    //             border.width: 5
-
-    //             MouseArea {
-    //                 anchors.fill: parent
-    //                 onClicked: {
-    //                     colClicked(index + 1);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    Button {
+        onClicked: {
+        }
+    }
 }

@@ -12,19 +12,17 @@ Board::Board(QObject *parent) : QAbstractListModel(parent)
 
 int Board::rowCount(const QModelIndex &parent) const
 {
-    return ROW_MAX;
-}
-
-int Board::columnCount(const QModelIndex &parent) const
-{
-    return COL_MAX;
+    return ROW_MAX * COL_MAX;
 }
 
 QVariant Board::data(const QModelIndex &index, int role) const
 {
+    int r = index.row() / COL_MAX + 1;
+    int c = index.column() % COL_MAX + 1;
+
     if (role == Qt::DisplayRole)
     {
-        return m_map[index.row() + 1][index.column() + 1];
+        return m_map[r][c];
     }
     return QVariant();
 }

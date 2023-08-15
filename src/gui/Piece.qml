@@ -4,7 +4,7 @@ import QtQuick.Controls 2.12
 Rectangle {
     id: root
     property var player: 0
-    radius: 5
+    radius: width / 2
 
     color: {
         if (player == 1) {
