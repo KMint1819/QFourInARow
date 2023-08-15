@@ -11,6 +11,7 @@ Rectangle {
         model: boardModel
         cellWidth: gridView.width / 7
         cellHeight: gridView.height / 6
+        verticalLayoutDirection: GridView.BottomToTop
 
         delegate: Piece {
             width: gridView.cellWidth - 8
