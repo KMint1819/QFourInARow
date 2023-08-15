@@ -23,8 +23,8 @@ bool Referee::vertical(const PlayerId &playerNum, const BoardContainer &map) con
     bool has_won = false;
 
     // vertical
-    for (int i = 1; i <= ROW_MAX - 4 + 1 && has_won == false; ++i)
-        for (int j = 1; j <= COL_MAX && has_won == false; ++j)
+    for (int i = 0; i < ROW_MAX - 4 + 1 && has_won == false; ++i)
+        for (int j = 0; j < COL_MAX && has_won == false; ++j)
         {
             bool tmp = true;
 
@@ -48,8 +48,8 @@ bool Referee::horizontal(const PlayerId &playerNum, const BoardContainer &map) c
 {
     bool has_won = false;
 
-    for (int i = 1; i <= ROW_MAX && has_won == false; ++i)
-        for (int j = 1; j <= COL_MAX - 4 + 1 && has_won == false; ++j)
+    for (int i = 0; i < ROW_MAX && has_won == false; ++i)
+        for (int j = 0; j < COL_MAX - 4 + 1 && has_won == false; ++j)
         {
             bool tmp = true;
 
@@ -74,8 +74,8 @@ bool Referee::diagonalUp(const PlayerId &playerNum, const BoardContainer &map) c
     bool has_won = false;
     QSet<QPair<int, int>> headList;
 
-    for (int i = ROW_MAX; i - 3 >= 1; --i)
-        for (int j = 1; j + 3 <= COL_MAX; ++j)
+    for (int i = ROW_MAX - 1; i - 3 >= 0; --i)
+        for (int j = 0; j + 3 < COL_MAX; ++j)
             headList.insert(QPair<int, int>(i, j));
 
     for (auto head : headList)
@@ -106,8 +106,8 @@ bool Referee::diagonalDown(const PlayerId &playerNum, const BoardContainer &map)
     bool has_won = false;
     QSet<QPair<int, int>> headList;
 
-    for (int i = 1; i + 3 <= ROW_MAX; ++i)
-        for (int j = 1; j + 3 <= COL_MAX; ++j)
+    for (int i = 0; i + 3 < ROW_MAX; ++i)
+        for (int j = 0; j + 3 < COL_MAX; ++j)
             headList.insert(QPair<int, int>(i, j));
 
     for (auto head : headList)

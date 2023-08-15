@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 
 Rectangle {
     id: root
-    property var player: 0
+    property int player: 0
     radius: width / 2
 
     color: {

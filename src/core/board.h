@@ -23,11 +23,11 @@ class Board : public QAbstractListModel
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     // Slots
-    void onPut(const PlayerId &playerNum, const int &col);
-    void onRestart();
+    Q_INVOKABLE void onPut(const PlayerId &playerNum, const int &col);
+    Q_INVOKABLE void onRestart();
 
   signals:
-    void updateSignal(BoardContainer map, PlayerId winner);
+    void gameOver(PlayerId winner);
 
   private:
     BoardContainer m_map;

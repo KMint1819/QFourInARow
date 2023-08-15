@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("boardModel", &board);
 
     engine.load(url);
+    engine.rootObjects().first();
 
     return app.exec();
 }

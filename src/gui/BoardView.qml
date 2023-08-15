@@ -9,19 +9,38 @@ Rectangle {
         id: gridView
         anchors.fill: parent
         model: boardModel
-        flow: GridView.BottomToTop
         cellWidth: gridView.width / 7
         cellHeight: gridView.height / 6
 
         delegate: Piece {
-            width: gridView.cellWidth - 5
-            height: gridView.cellHeight - 5
+            width: gridView.cellWidth - 8
+            height: gridView.cellHeight - 8
             player: model.display
         }
     }
-    Button {
-        onClicked: {
-            console.log(`gridView size: ${gridView.width}x${gridView.height}`);
+    RowLayout {
+        anchors.fill: parent
+        Repeater {
+            model: 7
+            Rectangle {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                color: "transparent"
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log(`Clicked: ${index}`);
+                        boardModel.onPut(1, index);
+                    }
+                }
+            }
+        }
+    }
+    Connections {
+        target: boardModel
+        onGameOver: winner => {
+            console.log(`winner: ${winner}`);
         }
     }
 }
