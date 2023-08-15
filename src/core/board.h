@@ -23,7 +23,7 @@ class Board : public QAbstractListModel
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     // Slots
-    Q_INVOKABLE void onPut(const PlayerId &playerNum, const int &col);
+    Q_INVOKABLE void onPut(const int &col);
     Q_INVOKABLE void onRestart();
 
   signals:
@@ -32,5 +32,6 @@ class Board : public QAbstractListModel
   private:
     BoardContainer m_map;
     Referee m_ref;
+    PlayerId m_currentPlayer = 1;
 };
 #endif // BOARD_H

@@ -31,16 +31,14 @@ QVariant Board::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void Board::onPut(const PlayerId &playerNum, const int &col)
+void Board::onPut(const int &col)
 {
-    qDebug("onPut: %d, %d", playerNum, col);
     bool success = false;
     for (int i = 0; i < COL_MAX; i++)
     {
         if (m_map[i][col] == 0)
         {
-            m_map[i][col] = playerNum;
-            qDebug("%d, %d, %d", i, COL_MAX, col);
+            m_map[i][col] = m_currentPlayer;
             emit dataChanged(index(i * COL_MAX + col), index(i * COL_MAX + col));
             success = true;
             qDebug("Putting to %d, %d\n", i, col);
@@ -52,6 +50,7 @@ void Board::onPut(const PlayerId &playerNum, const int &col)
         qDebug() << "Column is full";
         return;
     }
+    m_currentPlayer = m_currentPlayer % 2 + 1;
 
     qDebug() << m_map;
     std::optional<PlayerId> winner = m_ref.judge(m_map);
@@ -67,4 +66,5 @@ void Board::onRestart()
         std::fill(m_map[i].begin(), m_map[i].end(), 0);
     }
     emit endResetModel();
+    m_currentPlayer = 1;
 }

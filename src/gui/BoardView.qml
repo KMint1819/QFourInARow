@@ -32,7 +32,7 @@ Rectangle {
                     anchors.fill: parent
                     onClicked: {
                         console.log(`Clicked: ${index}`);
-                        boardModel.onPut(1, index);
+                        boardModel.onPut(index);
                     }
                 }
             }
