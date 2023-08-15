@@ -39,7 +39,7 @@ ApplicationWindow {
     BoardView {
         id: boardView
         anchors.fill: parent
-        anchors.topMargin: 100
+        anchors.topMargin: 200
         color: boardModel
         // onColClicked: {
         //     console.info("Column ", col, " clicked!");

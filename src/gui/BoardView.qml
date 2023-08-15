@@ -5,12 +5,13 @@ import QtQuick.Layouts 1.12
 Rectangle {
     id: root
     color: "#0000CA"
-    property int recSize: 60
     GridView {
         id: gridView
         anchors.fill: parent
         model: boardModel
-        flow: GridView.RightToLeft
+        flow: GridView.BottomToTop
+        cellWidth: gridView.width / 7
+        cellHeight: gridView.height / 6
 
         delegate: Piece {
             width: gridView.cellWidth - 5
@@ -20,6 +21,7 @@ Rectangle {
     }
     Button {
         onClicked: {
+            console.log(`gridView size: ${gridView.width}x${gridView.height}`);
         }
     }
 }
