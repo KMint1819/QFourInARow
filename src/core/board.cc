@@ -8,8 +8,6 @@ Board::Board(QObject *parent) : QAbstractListModel(parent)
     {
         m_map[i].resize(COL_MAX);
     }
-    m_map[0][0] = 1;
-    m_map[ROW_MAX - 1][COL_MAX - 1] = 2;
 }
 
 int Board::rowCount(const QModelIndex &) const
@@ -19,10 +17,8 @@ int Board::rowCount(const QModelIndex &) const
 
 QVariant Board::data(const QModelIndex &index, int role) const
 {
-    // Returning the map reversely
     int r = index.row() / COL_MAX;
     int c = index.row() % COL_MAX;
-    qDebug("Getting data at %d,%d: %d", r, c, m_map[r][c]);
 
     if (role == Qt::DisplayRole)
     {
@@ -33,8 +29,9 @@ QVariant Board::data(const QModelIndex &index, int role) const
 
 void Board::onPut(const int &col)
 {
+    qDebug("PUTTING %d\n", col);
     bool success = false;
-    for (int i = 0; i < COL_MAX; i++)
+    for (int i = 0; i < ROW_MAX; i++)
     {
         if (m_map[i][col] == 0)
         {
@@ -50,6 +47,7 @@ void Board::onPut(const int &col)
         qDebug() << "Column is full";
         return;
     }
+
     m_currentPlayer = m_currentPlayer % 2 + 1;
 
     qDebug() << m_map;

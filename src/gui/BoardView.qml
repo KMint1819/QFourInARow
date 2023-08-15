@@ -38,10 +38,33 @@ Rectangle {
             }
         }
     }
+    Dialog {
+        id: dialog
+        modal: true // Make the dialog modal
+        visible: false
+        property int winner: 0
+
+        Rectangle {
+            width: 300
+            height: 200
+            color: "white"
+
+            Button {
+                text: `${winner} wins. Restart?`
+                anchors.centerIn: parent
+                onClicked: {
+                    boardModel.onRestart();
+                    dialog.close();
+                }
+            }
+        }
+    }
     Connections {
         target: boardModel
         onGameOver: winner => {
             console.log(`winner: ${winner}`);
+            dialog.winner = winner;
+            dialog.open();
         }
     }
 }
