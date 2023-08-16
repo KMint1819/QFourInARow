@@ -9,16 +9,24 @@ ApplicationWindow {
     width: 700
     height: 800
     title: qsTr("Hello World")
+
+    Rectangle {
+        anchors.fill: parent
+        color: "white"
+    }
     Text {
         id: txtStatus
-        property string orignalText: "Status: Progressing..."
+        property string orignalText: "hello"
         padding: pad
         font.pixelSize: 16
+        color: "black"
         text: orignalText
     }
     Button {
         id: btnClear
         anchors.right: parent.right
+        width: 150
+        height: 80
         Text {
             text: "Restart"
             anchors.fill: parent

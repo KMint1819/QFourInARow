@@ -49,19 +49,24 @@ Rectangle {
         visible: false
         property int winner: 0
 
-        Rectangle {
-            width: 300
-            height: 200
-            color: "white"
+        width: 600
+        height: 400
 
-            Button {
-                text: `${dialog.winner} wins. Restart?`
+        Button {
+            anchors.fill: parent
+            background: Rectangle {
+                color: "pink"
+            }
+            Text {
                 anchors.centerIn: parent
-                onClicked: {
-                    boardModel.onRestart();
-                    dialog.close();
-                    root.isGameOver = false;
-                }
+                text: `${dialog.winner} wins. Click to restart.`
+                color: "black"
+                font.pixelSize: 18
+            }
+            onClicked: {
+                boardModel.onRestart();
+                dialog.close();
+                root.isGameOver = false;
             }
         }
     }
