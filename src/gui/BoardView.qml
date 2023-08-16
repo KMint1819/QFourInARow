@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 Rectangle {
     id: root
     color: "#0000CA"
+    property bool isGameOver: false
     GridView {
         id: gridView
         anchors.fill: parent
@@ -31,6 +32,10 @@ Rectangle {
                     id: mouseArea
                     anchors.fill: parent
                     onClicked: {
+                        if (root.isGameOver) {
+                            console.log("Game is over");
+                            return;
+                        }
                         console.log(`Clicked: ${index}`);
                         boardModel.onPut(index);
                     }
@@ -50,11 +55,12 @@ Rectangle {
             color: "white"
 
             Button {
-                text: `${winner} wins. Restart?`
+                text: `${dialog.winner} wins. Restart?`
                 anchors.centerIn: parent
                 onClicked: {
                     boardModel.onRestart();
                     dialog.close();
+                    root.isGameOver = false;
                 }
             }
         }
@@ -65,6 +71,7 @@ Rectangle {
             console.log(`winner: ${winner}`);
             dialog.winner = winner;
             dialog.open();
+            isGameOver = true;
         }
     }
 }

@@ -29,6 +29,7 @@ ApplicationWindow {
         onClicked: {
             console.info('Clear clicked!');
             boardModel.onRestart();
+            boardView.isGameOver = false;
         }
     }
 
